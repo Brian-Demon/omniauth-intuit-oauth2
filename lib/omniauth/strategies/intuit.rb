@@ -31,9 +31,6 @@ module OmniAuth
 
       def raw_info
         @raw_info ||= access_token.get(USER_INFO_ENDPOINT).parsed
-        puts "================================================="
-        puts @raw_info
-        puts "================================================="
       end
 
       def verified_email
