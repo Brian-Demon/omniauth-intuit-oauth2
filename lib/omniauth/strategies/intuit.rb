@@ -41,6 +41,10 @@ module OmniAuth
         raw_info['email_verified'] ? raw_info['email'] : nil
       end
 
+      def get_token_options(redirect_uri = '')
+        { redirect_uri: redirect_uri }.merge(token_params.to_hash(symbolize_keys: true))
+      end
+
       def prune!(hash)
         hash.delete_if do |_, value|
           prune!(value) if value.is_a?(Hash)
