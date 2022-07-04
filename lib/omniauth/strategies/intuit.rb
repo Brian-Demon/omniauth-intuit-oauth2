@@ -24,9 +24,10 @@ module OmniAuth
 
       info do
         prune!(
-          email: verified_email,
-          unverified_email: raw_info['email'],
-          email_verified: raw_info['email_verified'],
+          # email: verified_email,
+          # unverified_email: raw_info['email'],
+          # email_verified: raw_info['email_verified'],
+          email: raw_info['email'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
           scopes: options.scope,
