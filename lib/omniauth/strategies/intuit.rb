@@ -20,17 +20,7 @@ module OmniAuth
 
       uid { raw_info['sub'] }
 
-      def scopes_are_valid
-        valid = true
-        if options.scope
-          options.scope.split(" ").each do |scope|
-            return false if !VALID_SCOPES.include? scope
-          end
-        end
-        valid
-      end
-
-      option :scope, BASE_SCOPES# if !scopes_are_valid
+      option :scope, BASE_SCOPES unless options.scope
 
       info do
         prune!(
@@ -42,7 +32,6 @@ module OmniAuth
           scopes: options.scope,
           mode: options.mode,
           valid_mode: valid_mode,
-          valid_scope: scopes_are_valid,
         )
       end
 
