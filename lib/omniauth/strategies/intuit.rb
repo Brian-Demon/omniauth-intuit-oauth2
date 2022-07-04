@@ -20,6 +20,7 @@ module OmniAuth
 
       option :scope, BASE_SCOPES
 
+
       # if valid_scopes?
       #   option :scope, BASE_SCOPES
       # else
@@ -35,6 +36,7 @@ module OmniAuth
           email_verified: raw_info['email_verified'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
+          mode: options.mode
         )
       end
 
