@@ -18,16 +18,16 @@ module OmniAuth
         :authorize_url => "https://appcenter.intuit.com/connect/oauth2",
       }
 
-      uid { raw_info['sub'] }
+      uid { raw_info["sub"] }
 
       info do
         prune!(
           email: verified_email,
-          unverified_email: raw_info['email'],
-          email_verified: raw_info['emailVerified'],
-          email: raw_info['email'],
-          first_name: raw_info['givenName'],
-          last_name: raw_info['familyName='],
+          unverified_email: raw_info["email"],
+          email_verified: raw_info["emailVerified"],
+          email: raw_info["email"],
+          first_name: raw_info["givenName"],
+          last_name: raw_info["familyName"],
           raw_info: @raw_info,
         )
       end
@@ -51,7 +51,7 @@ module OmniAuth
       end
 
       def verified_email
-        raw_info['emailVerified'] ? raw_info['email'] : nil
+        raw_info["emailVerified"] ? raw_info["email"] : nil
       end
 
       def prune!(hash)
