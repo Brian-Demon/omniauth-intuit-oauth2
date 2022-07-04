@@ -26,8 +26,8 @@ module OmniAuth
           unverified_email: raw_info['email'],
           email_verified: raw_info['emailVerified'],
           email: raw_info['email'],
-          first_name: raw_info['given_name'],
-          last_name: raw_info['family_name'],
+          first_name: raw_info['givenName'],
+          last_name: raw_info['familyName='],
           raw_info: @raw_info,
         )
       end
