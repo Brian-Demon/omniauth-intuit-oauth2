@@ -24,7 +24,7 @@ module OmniAuth
         prune!(
           email: verified_email,
           unverified_email: raw_info['email'],
-          email_verified: raw_info['email_verified'],
+          email_verified: raw_info['emailVerified'],
           email: raw_info['email'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
