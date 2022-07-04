@@ -96,6 +96,19 @@ module OmniAuth
       def get_token_params
         deep_symbolize(options.auth_token_params || {})
       end
+
+      def verify_hd(access_token)
+        return true unless options.hd
+
+        @raw_info ||= access_token.get(USER_INFO_URL).parsed
+
+        options.hd = options.hd.call if options.hd.is_a? Proc
+        allowed_hosted_domains = Array(options.hd)
+
+        raise CallbackError.new(:invalid_hd, 'Invalid Hosted Domain') unless allowed_hosted_domains.include?(@raw_info['hd']) || options.hd == '*'
+
+        true
+      end
     end
   end
 end
