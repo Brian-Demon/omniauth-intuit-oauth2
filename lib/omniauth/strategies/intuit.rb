@@ -8,6 +8,7 @@ module OmniAuth
       PROD_INPUT_BASE_URL = "https://accounts.platform.intuit.com"
       USER_INFO_ENDPOINT = "/v1/openid_connect/userinfo"
       BASE_SCOPES = "openid email profile"
+      VALID_SCOPES = %w[openid profile email phone addess com.intuit.quickbooks.accounting com.intuit.quickbooks.payment].freeze
 
       option :name, "intuit"
 
@@ -18,6 +19,12 @@ module OmniAuth
       }
 
       option :scope, BASE_SCOPES
+
+      # if valid_scopes?
+      #   option :scope, BASE_SCOPES
+      # else
+      #   options :scope, opts[:scope]
+      # end
 
       uid { raw_info['sub'] }
 
@@ -30,6 +37,26 @@ module OmniAuth
           last_name: raw_info['family_name'],
         )
       end
+
+      def valid_mode?
+        valid = false
+        if options.mode
+          if options.mode.to_sym == :development || options.mode.to_sym == :production
+            valid = true
+          end
+        end
+        valid
+      end
+
+      # def valid_scope?
+      #   valid = true
+      #   if opts.has_key? :scope
+      #     opts[:scope].split(" ").each do |scope|
+      #       return false if !VALID_SCOPES.include? scope
+      #     end
+      #   end
+      #   valid
+      # end
 
       def raw_info
         @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
