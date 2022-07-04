@@ -3,8 +3,8 @@ require 'crack'
 
 module OmniAuth
   module Strategies
-    class IntuitOauth2 < OmniAuth::Strategies::OAuth2
-      option :name, "intuitoauth2"
+    class Intuit < OmniAuth::Strategies::OAuth2
+      option :name, "intuit"
 
       option :client_options, {
         :site => 'https://oauth.platform.intuit.com/op/v1',
@@ -55,4 +55,4 @@ module OmniAuth
   end
 end
 
-OmniAuth.config.add_camelization 'intuitoauth2', 'IntuitOauth2'
+OmniAuth.config.add_camelization 'intuit', 'Intuit'
