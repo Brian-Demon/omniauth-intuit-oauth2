@@ -46,6 +46,12 @@ module OmniAuth
           value.nil? || (value.respond_to?(:empty?) && value.empty?)
         end
       end
+
+      private
+
+      def callback_url
+        full_host + script_name + callback_path
+      end
     end
   end
 end
