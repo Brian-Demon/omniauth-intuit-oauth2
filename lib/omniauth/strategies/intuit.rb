@@ -4,6 +4,8 @@ require 'crack'
 module OmniAuth
   module Strategies
     class Intuit < OmniAuth::Strategies::OAuth2
+      DEV_INTUIT_BASE_URL = "https://sandbox-accounts.platform.intuit.com"
+      PROD_INPUT_BASE_URL = "https://accounts.platform.intuit.com"
       USER_INFO_ENDPOINT = "/v1/openid_connect/userinfo"
       BASE_SCOPES = "openid email profile"
 
@@ -30,7 +32,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get(USER_INFO_ENDPOINT).parsed
+        @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
       end
 
       def verified_email
