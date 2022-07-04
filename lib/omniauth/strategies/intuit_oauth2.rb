@@ -1,5 +1,6 @@
 require 'omniauth/strategies/oauth2'
 require 'crack'
+
 module OmniAuth
   module Strategies
     class IntuitOauth2 < OmniAuth::Strategies::OAuth2
@@ -54,4 +55,4 @@ module OmniAuth
   end
 end
 
-OmniAuth.config.add_camelization 'intuit_oauth2', 'IntuitOauth2'
+# OmniAuth.config.add_camelization 'intuit_oauth2', 'IntuitOauth2'
