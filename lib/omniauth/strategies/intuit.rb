@@ -5,7 +5,7 @@ module OmniAuth
   module Strategies
     class Intuit < OmniAuth::Strategies::OAuth2
       USER_INFO_ENDPOINT = "/v1/openid_connect/userinfo"
-      BASE_SCOPES = %w[openid email profile].freeze
+      BASE_SCOPES = "openid email profile"
 
       option :name, "intuit"
 
