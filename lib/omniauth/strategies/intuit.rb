@@ -20,7 +20,7 @@ module OmniAuth
 
       uid { raw_info['sub'] }
 
-      option :scope, BASE_SCOPES unless options.scope
+      # option :scope, BASE_SCOPES
 
       info do
         prune!(
