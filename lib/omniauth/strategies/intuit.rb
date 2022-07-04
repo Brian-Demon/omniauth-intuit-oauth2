@@ -30,7 +30,7 @@ module OmniAuth
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
           valid_mode: valid_mode?,
-          valid_scope: valid_scopes?
+          # valid_scope: valid_scopes?,
         )
       end
 
