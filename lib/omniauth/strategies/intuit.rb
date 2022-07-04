@@ -29,7 +29,9 @@ module OmniAuth
           email_verified: raw_info['email_verified'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
-          valid_mode: valid_mode?,
+          scopes: options.scope
+          mode: options.mode
+          # valid_mode: valid_mode?,
           # valid_scope: valid_scopes?,
         )
       end
@@ -44,15 +46,15 @@ module OmniAuth
         valid
       end
 
-      def valid_scopes?
-        valid = true
-        if options.scope
-          options.scope.split(" ").each do |scope|
-            return false if !VALID_SCOPES.include? scope
-          end
-        end
-        valid
-      end
+      # def valid_scopes?
+      #   valid = true
+      #   if options.scope
+      #     options.scope.split(" ").each do |scope|
+      #       return false if !VALID_SCOPES.include? scope
+      #     end
+      #   end
+      #   valid
+      # end
 
       def raw_info
         if valid_mode? && options.mode == :production
