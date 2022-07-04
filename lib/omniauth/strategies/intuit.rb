@@ -2,8 +2,8 @@ require 'omniauth/strategies/oauth2'
 require 'crack'
 module OmniAuth
   module Strategies
-    class Intuit < OmniAuth::Strategies::OAuth2
-      option :name, "intuit"
+    class IntuitOauth2 < OmniAuth::Strategies::OAuth2
+      option :name, "intuit_oauth2"
 
       option :client_options, {
         :site => 'https://oauth.platform.intuit.com/op/v1',
