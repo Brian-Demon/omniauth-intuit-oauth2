@@ -18,7 +18,7 @@ module OmniAuth
         :authorize_url => "https://appcenter.intuit.com/connect/oauth2",
       }
 
-      option :scope, BASE_SCOPES
+      option :scope, BASE_SCOPES if !valid_scopes
 
       uid { raw_info['sub'] }
 
@@ -31,33 +31,33 @@ module OmniAuth
           last_name: raw_info['family_name'],
           scopes: options.scope,
           mode: options.mode,
-          # valid_mode: valid_mode?,
-          # valid_scope: valid_scopes?,
+          valid_mode: valid_mode,
+          valid_scope: valid_scopes,
         )
       end
 
-      # def valid_mode?
-      #   valid = false
-      #   if options.mode
-      #     if options.mode.to_sym == :development || options.mode.to_sym == :production
-      #       valid = true
-      #     end
-      #   end
-      #   valid
-      # end
+      def valid_mode
+        valid = false
+        if options.mode
+          if options.mode.to_sym == :development || options.mode.to_sym == :production
+            valid = true
+          end
+        end
+        valid
+      end
 
-      # def valid_scopes?
-      #   valid = true
-      #   if options.scope
-      #     options.scope.split(" ").each do |scope|
-      #       return false if !VALID_SCOPES.include? scope
-      #     end
-      #   end
-      #   valid
-      # end
+      def valid_scopes
+        valid = true
+        if options.scope
+          options.scope.split(" ").each do |scope|
+            return false if !VALID_SCOPES.include? scope
+          end
+        end
+        valid
+      end
 
       def raw_info
-        if options.mode == :production
+        if valid_mode && options.mode == :production
           @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
         else
           @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
