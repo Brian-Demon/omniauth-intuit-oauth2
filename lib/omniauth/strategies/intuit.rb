@@ -32,6 +32,7 @@ module OmniAuth
           scopes: options.scope,
           mode: options.mode,
           valid_mode: valid_mode,
+          actual_mode: @mode
         )
       end
 
@@ -48,8 +49,10 @@ module OmniAuth
       def raw_info
         if valid_mode && options.mode == :production
           @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
+          @mode = :production
         else
           @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
+          @mode = :development
         end
       end
 
