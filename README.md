@@ -14,7 +14,7 @@ Next, you need to add the following to your `config/initializers/omniauth.rb`:
       provider :intuit, "consumer_key", "consumer_secret" 
     end
 
-You will get your consumer key and secret when you register your app with Intuit Anywhere.  (See
-https://ipp.developer.intuit.com/0010_Intuit_Partner_Platform/0030_Intuit_Anywhere/0040_Hello_World_IA for an example)
+You will get your consumer key and secret when you register your app with Intuit Anywhere.
+To begin the setup process with Intuit Develeoper visit: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
 
 You can now follow the OmniAuth README at: https://github.com/intridea/omniauth
