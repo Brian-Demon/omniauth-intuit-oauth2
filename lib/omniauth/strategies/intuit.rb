@@ -18,14 +18,7 @@ module OmniAuth
         :authorize_url => "https://appcenter.intuit.com/connect/oauth2",
       }
 
-      option :scope, BASE_SCOPES
-
-
-      # if valid_scopes?
-      #   option :scope, BASE_SCOPES
-      # else
-      #   options :scope, opts[:scope]
-      # end
+      option :scope, BASE_SCOPES if !valid_scopes?
 
       uid { raw_info['sub'] }
 
@@ -36,7 +29,8 @@ module OmniAuth
           email_verified: raw_info['email_verified'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
-          mode: options.mode
+          valid_mode: valid_mode?,
+          valid_scope: valid_scopes?
         )
       end
 
@@ -50,18 +44,22 @@ module OmniAuth
         valid
       end
 
-      # def valid_scope?
-      #   valid = true
-      #   if opts.has_key? :scope
-      #     opts[:scope].split(" ").each do |scope|
-      #       return false if !VALID_SCOPES.include? scope
-      #     end
-      #   end
-      #   valid
-      # end
+      def valid_scopes?
+        valid = true
+        if options.scope
+          options.scope.split(" ").each do |scope|
+            return false if !VALID_SCOPES.include? scope
+          end
+        end
+        valid
+      end
 
       def raw_info
-        @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
+        if valid_mode? && options.mode == :production
+          @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
+        else
+          @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
+        end
       end
 
       def verified_email
