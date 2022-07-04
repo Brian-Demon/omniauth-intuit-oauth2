@@ -28,7 +28,7 @@ module OmniAuth
           email: raw_info["email"],
           first_name: raw_info["givenName"],
           last_name: raw_info["familyName"],
-          raw_info: @raw_info,
+          # raw_info: @raw_info, # for debugging
         )
       end
 
