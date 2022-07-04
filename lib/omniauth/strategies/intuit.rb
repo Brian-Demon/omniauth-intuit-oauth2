@@ -30,10 +30,7 @@ module OmniAuth
           email: raw_info['email'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
-          scopes: options.scope,
-          mode: options.mode,
-          valid_mode: valid_mode,
-          actual_mode: @mode
+          raw_info: raw_info,
         )
       end
 
