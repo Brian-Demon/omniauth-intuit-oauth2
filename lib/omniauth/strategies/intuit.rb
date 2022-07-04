@@ -4,21 +4,49 @@ require 'crack'
 module OmniAuth
   module Strategies
     class Intuit < OmniAuth::Strategies::OAuth2
+      USER_INFO_ENDPOINT = "/v1/openid_connect/userinfo"
+      BASE_SCOPES = %w[openid email profile].freeze
+
       option :name, "intuit"
 
       option :client_options, {
-        :site => 'https://oauth.platform.intuit.com/op/v1',
-        :token_url => 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer',
-        :authorize_url => 'https://appcenter.intuit.com/connect/oauth2',
+        :site => "https://oauth.platform.intuit.com/op/v1",
+        :token_url => "https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer",
+        :authorize_url => "https://appcenter.intuit.com/connect/oauth2",
       }
 
-      option :scope, "openid email profile"
+      option :scope, BASE_SCOPES
 
       def callback_url
         full_host + script_name + callback_path
       end
 
-      # uid{ raw_info['id'] }
+      uid { raw_info['sub'] }
+
+      info do
+        prune!(
+          email: verified_email,
+          unverified_email: raw_info['email'],
+          email_verified: raw_info['email_verified'],
+          first_name: raw_info['given_name'],
+          last_name: raw_info['family_name'],
+        )
+      end
+
+      def raw_info
+        @raw_info ||= access_token.get(USER_INFO_ENDPOINT).parsed
+      end
+
+      def verified_email
+        raw_info['email_verified'] ? raw_info['email'] : nil
+      end
+
+      def prune!(hash)
+        hash.delete_if do |_, value|
+          prune!(value) if value.is_a?(Hash)
+          value.nil? || (value.respond_to?(:empty?) && value.empty?)
+        end
+      end
 
       # info do
       #         {
