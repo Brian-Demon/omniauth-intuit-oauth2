@@ -18,7 +18,7 @@ module OmniAuth
         :authorize_url => "https://appcenter.intuit.com/connect/oauth2",
       }
 
-      option :scope, BASE_SCOPES if !valid_scopes
+      option :scope, BASE_SCOPES if !scopes_are_valid
 
       uid { raw_info['sub'] }
 
@@ -32,7 +32,7 @@ module OmniAuth
           scopes: options.scope,
           mode: options.mode,
           valid_mode: valid_mode,
-          valid_scope: valid_scopes,
+          valid_scope: scopes_are_valid,
         )
       end
 
@@ -46,7 +46,7 @@ module OmniAuth
         valid
       end
 
-      def valid_scopes
+      def scopes_are_valid
         valid = true
         if options.scope
           options.scope.split(" ").each do |scope|
