@@ -30,7 +30,7 @@ module OmniAuth
         valid
       end
 
-      option :scope, BASE_SCOPES if !scopes_are_valid
+      option :scope, BASE_SCOPES# if !scopes_are_valid
 
       info do
         prune!(
