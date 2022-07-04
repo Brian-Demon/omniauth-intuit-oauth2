@@ -20,17 +20,14 @@ module OmniAuth
 
       uid { raw_info['sub'] }
 
-      # option :scope, BASE_SCOPES
-
       info do
         prune!(
-          # email: verified_email,
-          # unverified_email: raw_info['email'],
-          # email_verified: raw_info['email_verified'],
+          email: verified_email,
+          unverified_email: raw_info['email'],
+          email_verified: raw_info['email_verified'],
           email: raw_info['email'],
           first_name: raw_info['given_name'],
           last_name: raw_info['family_name'],
-          raw_info: raw_info,
         )
       end
 
@@ -45,17 +42,17 @@ module OmniAuth
       end
 
       def raw_info
-        # if valid_mode && options.mode == :production
-        #   @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
-        #   @mode = :production
-        # else
+        if valid_mode && options.mode == :production
+          @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
+          @mode = :production
+        else
           @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
-        #   @mode = :development
-        # end
+          @mode = :development
+        end
       end
 
       def verified_email
-        raw_info['email_verified'] ? raw_info['email'] : nil
+        raw_info['emailVerified'] ? raw_info['email'] : nil
       end
 
       def prune!(hash)
