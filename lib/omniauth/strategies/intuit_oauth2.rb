@@ -55,4 +55,4 @@ module OmniAuth
   end
 end
 
-# OmniAuth.config.add_camelization 'intuit_oauth2', 'IntuitOauth2'
+OmniAuth.config.add_camelization 'intuit-oauth2', 'IntuitOauth2'
