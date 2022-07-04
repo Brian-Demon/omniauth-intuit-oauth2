@@ -1,5 +1,6 @@
 require 'omniauth/strategies/oauth2'
 require 'crack'
+
 module OmniAuth
   module Strategies
     class Intuit < OmniAuth::Strategies::OAuth2
@@ -10,6 +11,8 @@ module OmniAuth
         :token_url => 'https://oauth.platform.intuit.com/oauth2/v1/tokens/bearer',
         :authorize_url => 'https://appcenter.intuit.com/connect/oauth2',
       }
+
+      option :scope, "openid email profile"
 
       def callback_url
         full_host + script_name + callback_path
