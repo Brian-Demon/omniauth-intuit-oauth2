@@ -18,7 +18,7 @@ module OmniAuth
         :authorize_url => "https://appcenter.intuit.com/connect/oauth2",
       }
 
-      option :scope, BASE_SCOPES if !valid_scopes?()
+      option :scope, BASE_SCOPES
 
       uid { raw_info['sub'] }
 
