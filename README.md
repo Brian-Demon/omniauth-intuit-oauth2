@@ -11,8 +11,9 @@ Usage is as per any other OmniAuth 2.0 strategy. So let's say you're using Rails
 Next, you need to add the following to your `config/initializers/omniauth.rb`:
 
     Rails.application.config.middleware.use OmniAuth::Builder do
-      provider :intuit, "consumer_key", "consumer_secret" 
+      provider :intuit, "consumer_key", "consumer_secret", scope: "" # i.e. 'openid email profile'**
     end
+** Information on scopes can be found: https://developer.intuit.com/app/developer/qbo/docs/learn/scopes
 
 You will get your consumer key and secret when you register your app with Intuit Anywhere.
 To begin the setup process with Intuit Develeoper visit: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
