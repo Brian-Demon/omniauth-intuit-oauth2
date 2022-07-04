@@ -34,7 +34,6 @@ module OmniAuth
       def valid_mode
         valid = false
         if options.mode
-          if options.mode.to_sym == :development || options.mode.to_sym == :production
             valid = true
           end
         end
@@ -42,13 +41,10 @@ module OmniAuth
       end
 
       def raw_info
-        if valid_mode && options.mode == :production
-          @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
-          @mode = :production
-        else
+        #   @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
+        # else
           @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
-          @mode = :development
-        end
+        # end
       end
 
       def verified_email
