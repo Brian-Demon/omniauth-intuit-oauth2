@@ -100,7 +100,7 @@ module OmniAuth
       def verify_hd(access_token)
         return true unless options.hd
 
-        @raw_info ||= access_token.get(USER_INFO_URL).parsed
+        @raw_info ||= access_token.get(USER_INFO_ENDPOINT).parsed
 
         options.hd = options.hd.call if options.hd.is_a? Proc
         allowed_hosted_domains = Array(options.hd)
