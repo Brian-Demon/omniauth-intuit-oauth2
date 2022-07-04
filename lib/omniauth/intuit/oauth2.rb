@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "oauth2/version"
+require "omniauth/strategies/intuit"
 
 module Omniauth
   module Intuit
