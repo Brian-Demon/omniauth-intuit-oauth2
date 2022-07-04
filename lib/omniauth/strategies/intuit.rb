@@ -48,39 +48,50 @@ module OmniAuth
         end
       end
 
-      # info do
-      #         {
-      #           :first_name => raw_info['firstName'],
-      #           :last_name => raw_info['lastName'],
-      #           :name => "#{raw_info['firstName']} #{raw_info['lastName']}",
-      #           :email => raw_info['email'],
-      #           :data_source => raw_info['dataSource'],
-      #           :oauth_verifier => raw_info['oauth_verifier'],
-      #           :realm_id => raw_info['realmId']
-      #
-      #         }
-      #       end
-      #
-      #       extra do
-      #         { 'raw_info' => raw_info }
-      #       end
-      #
-      #       def raw_info
-      #         # access_token.get(path, headers={})
-      #         # dataSource
-      #         #         "QBO"
-      #         #         oauth_token
-      #         #         "qyprdhjNbeM7UGDHYrgSvwqCRUQP0nZejdHw3IIFTaHY8mj5"
-      #         #         oauth_verifier
-      #         #         "ee3njpe"
-      #         #         realmId
-      #         #         "313247180"
-      #
-      #         puts "==================="
-      #         # access_token.get("/auth/intuit/callback").body
-      #         puts "==================="
-      #         @raw_info ||= Crack::XML.parse(access_token.get("").body)["RestResponse"]
-      #       end
+      def custom_build_access_token
+        access_token = get_access_token(request)
+
+        verify_hd(access_token)
+        access_token
+      end
+
+      alias build_access_token custom_build_access_token
+
+      def get_access_token(request)
+        verifier = request.params['code']
+        redirect_uri = request.params['redirect_uri']
+        access_token = request.params['access_token']
+        if verifier && request.xhr?
+          client_get_token(verifier, redirect_uri || 'postmessage')
+        elsif verifier
+          client_get_token(verifier, redirect_uri || callback_url)
+        elsif access_token && verify_token(access_token)
+          ::OAuth2::AccessToken.from_hash(client, request.params.dup)
+        elsif request.content_type =~ /json/i
+          begin
+            body = JSON.parse(request.body.read)
+            request.body.rewind # rewind request body for downstream middlewares
+            verifier = body && body['code']
+            access_token = body && body['access_token']
+            redirect_uri ||= body && body['redirect_uri']
+            if verifier
+              client_get_token(verifier, redirect_uri || 'postmessage')
+            elsif verify_token(access_token)
+              ::OAuth2::AccessToken.from_hash(client, body.dup)
+            end
+          rescue JSON::ParserError => e
+            warn "[omniauth google-oauth2] JSON parse error=#{e}"
+          end
+        end
+      end
+
+      def client_get_token(verifier, redirect_uri)
+        client.auth_code.get_token(verifier, get_token_options(redirect_uri), get_token_params)
+      end
+
+      def get_token_params
+        deep_symbolize(options.auth_token_params || {})
+      end
     end
   end
 end
