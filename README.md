@@ -12,7 +12,7 @@ Add this gem to your application's Gemfile:
     
 Then `bundle install`
 
-## Get Started
+## Getting Started
 
 You will get your consumer key and secret when you register your app with Intuit Anywhere.
 To begin the setup process with Intuit Develeoper visit: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
