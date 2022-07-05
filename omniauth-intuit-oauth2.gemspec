@@ -30,7 +30,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency 'omniauth-oauth2', '~> 1.7.1'
-  spec.add_runtime_dependency 'crack', '~> 0.4.5'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"

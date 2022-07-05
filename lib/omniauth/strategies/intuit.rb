@@ -1,5 +1,4 @@
 require 'omniauth/strategies/oauth2'
-require 'crack'
 
 module OmniAuth
   module Strategies
