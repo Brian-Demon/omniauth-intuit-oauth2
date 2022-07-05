@@ -14,6 +14,7 @@ Next, you need to add the following to your `config/initializers/omniauth.rb`:
       provider :intuit, "consumer_key", "consumer_secret", mode: *, scope: "" # i.e. "openid email profile"**
     end
 * mode is either `:production` or `:sandbox` as per the Intuit Developer docs: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs/oauth-nodejs-client#require-the-client
+
 ** Information on scopes can be found: https://developer.intuit.com/app/developer/qbo/docs/learn/scopes
 
 You will get your consumer key and secret when you register your app with Intuit Anywhere.
