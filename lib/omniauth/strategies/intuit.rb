@@ -35,13 +35,7 @@ module OmniAuth
       end
 
       def valid_mode
-        valid = false
-        if options.mode
-          if options.mode.to_sym == :development || options.mode.to_sym == :production
-            valid = true
-          end
-        end
-        valid
+        USER_BASE_URLS.has_key? options.mode
       end
 
       def raw_info
