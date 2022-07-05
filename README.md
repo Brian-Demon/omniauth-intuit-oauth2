@@ -18,7 +18,6 @@ Next, you need to add the following to your `config/initializers/omniauth.rb`:
 
     Rails.application.config.middleware.use OmniAuth::Builder do
       provider :intuit, "consumer_key", "consumer_secret", mode: :sandbox, scope: "openid"
-      # Referrence just below this code block for more info on the "mode" and "scope" arguments
     end
 
 ## Mode:
