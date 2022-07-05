@@ -17,7 +17,7 @@ Next, you need to add the following to your `config/initializers/omniauth.rb`:
 
 ## Mode:
 
-mode is either `:production` or `:sandbox` as per the Intuit Developer docs: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs/oauth-nodejs-client#require-the-client
+Mode is either `:production` or `:sandbox` as per the Intuit Developer docs: https://developer.intuit.com/app/developer/qbo/docs/develop/sdks-and-samples-collections/nodejs/oauth-nodejs-client#require-the-client
 
 ## Scope
 
