@@ -1,8 +1,7 @@
 PATH
   remote: .
   specs:
-    omniauth-intuit-oauth2 (0.1.0)
-      crack (~> 0.4.5)
+    omniauth-intuit-oauth2 (0.2.0)
       omniauth-oauth2 (~> 1.7.1)
 
 GEM
