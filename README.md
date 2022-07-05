@@ -33,6 +33,8 @@ Mode is either `:production` or `:sandbox` as per the Intuit Developer docs: htt
 
 Information on scopes can be found: https://developer.intuit.com/app/developer/qbo/docs/learn/scopes
 
+## OmniAuth2
+
 You can now follow the OmniAuth README at: https://github.com/omniauth/omniauth-oauth2
 
 ## Contributing
