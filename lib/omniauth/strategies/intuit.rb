@@ -45,7 +45,7 @@ module OmniAuth
       end
 
       def raw_info
-        @raw_info ||= access_token.get(user_endpoint_url(mode)).parsed
+        @raw_info ||= access_token.get(user_endpoint_url(options.mode)).parsed
       end
 
       def user_endpoint_url(mode)
