@@ -3,7 +3,7 @@ This gem contains the Intuit strategy for OmniAuth 2.0
 
 ## Installation
 
-Usage is like any other OmniAuth 2.0 strategy. So let's say you're using Rails, you need to add the strategy to your `Gemfile` along side omniauth:
+Usage is similar to many other OmniAuth 2.0 strategies. So let's say you're using Rails, you need to add the strategy to your `Gemfile` along side omniauth:
 
 Add this gem to your application's Gemfile:
 
