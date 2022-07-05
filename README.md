@@ -12,6 +12,11 @@ Add this gem to your application's Gemfile:
     
 Then `bundle install`
 
+## Get Started
+
+You will get your consumer key and secret when you register your app with Intuit Anywhere.
+To begin the setup process with Intuit Develeoper visit: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
+
 ## How To Use It
 
 Next, you need to add the following to your `config/initializers/omniauth.rb`:
@@ -27,9 +32,6 @@ Mode is either `:production` or `:sandbox` as per the Intuit Developer docs: htt
 ## Scope
 
 Information on scopes can be found: https://developer.intuit.com/app/developer/qbo/docs/learn/scopes
-
-You will get your consumer key and secret when you register your app with Intuit Anywhere.
-To begin the setup process with Intuit Develeoper visit: https://developer.intuit.com/app/developer/qbo/docs/develop/authentication-and-authorization/oauth-2.0
 
 You can now follow the OmniAuth README at: https://github.com/omniauth/omniauth-oauth2
 
