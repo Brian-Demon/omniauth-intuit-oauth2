@@ -4,11 +4,13 @@ require 'crack'
 module OmniAuth
   module Strategies
     class Intuit < OmniAuth::Strategies::OAuth2
-      DEV_INTUIT_BASE_URL = "https://sandbox-accounts.platform.intuit.com"
-      PROD_INPUT_BASE_URL = "https://accounts.platform.intuit.com"
       USER_INFO_ENDPOINT = "/v1/openid_connect/userinfo"
       BASE_SCOPES = "openid email profile"
       VALID_SCOPES = %w[openid profile email phone addess com.intuit.quickbooks.accounting com.intuit.quickbooks.payment].freeze
+      USER_BASE_URLS = { 
+        production: "https://accounts.platform.intuit.com",
+        sandbox: "https://sandbox-accounts.platform.intuit.com",
+      }
 
       option :name, "intuit"
 
@@ -43,11 +45,17 @@ module OmniAuth
       end
 
       def raw_info
+        @raw_info ||= access_token.get(user_endpoint_url(mode)).parsed
+      end
+
+      def user_endpoint_url(mode)
+        user_info_endpoint = nil
         if valid_mode && options.mode == :production
-          @raw_info ||= access_token.get(PROD_INPUT_BASE_URL + USER_INFO_ENDPOINT).parsed
+          user_info_endpoint = USER_BASE_URLS[:production] + USER_INFO_ENDPOINT
         else
-          @raw_info ||= access_token.get(DEV_INTUIT_BASE_URL + USER_INFO_ENDPOINT).parsed
+          user_info_endpoint = USER_BASE_URLS[:sandbox] + USER_INFO_ENDPOINT
         end
+        user_info_endpoint
       end
 
       def verified_email
